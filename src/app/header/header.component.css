@@ -1,0 +1,33 @@
+
+nav{
+    height: 40px;
+    padding: 0px;
+    margin: 0px;
+}
+nav > div {
+    height: 100%;
+    width: fit-content;
+}
+nav > div > a {
+    color: white;
+    height: 100%; 
+    text-align: center;
+    
+
+}
+nav > div > a:hover {
+    background-color: white;
+    color: black;
+}
+.left{
+    margin-right: auto;
+}
+.right{
+    margin-left: auto;
+}
+.left a { 
+    width: 140px;
+}
+.right a {
+    width: 70px;
+}

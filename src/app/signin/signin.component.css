@@ -1,0 +1,9 @@
+button{
+    margin-left: 0px; 
+    margin-right: auto;  
+    width: 120px; 
+    text-align: center;
+}
+.modal-footer{
+    width: 100%;
+}

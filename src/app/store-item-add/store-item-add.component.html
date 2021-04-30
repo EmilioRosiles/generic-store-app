@@ -1,0 +1,51 @@
+<div class="card">
+  <h1 class="">Add items to the store</h1>
+
+  <div class="">
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label for="itemID">ID</label>
+        <input
+          type="text"
+          formControlName="itemID"
+          class="form-control"
+          [ngClass]="{ 'is-invalid': submitted && f.ID.errors }"
+        />
+        <div *ngIf="submitted && f.ID.errors" class="invalid-feedback">
+          <div *ngIf="f.ID.errors.required">ID is required</div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="name">Item Name</label>
+        <input
+          type="text"
+          formControlName="name"
+          class="form-control"
+          [ngClass]="{ 'is-invalid': submitted && f.name.errors }"
+        />
+        <div *ngIf="submitted && f.name.errors" class="invalid-feedback">
+          <div *ngIf="f.name.errors.required">
+            A name for the item is required
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="price">Item Price</label>
+        <input
+          type="number"
+          formControlName="name"
+          class="form-control"
+          [ngClass]="{ 'is-invalid': submitted && f.price.errors }"
+        />
+        <div *ngIf="submitted && f.price.errors" class="invalid-feedback">
+          <div *ngIf="f.price.errors.required">
+            A price for the item is required
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <button class="btn btn-primary">Add</button>
+      </div>
+    </form>
+  </div>
+</div>
