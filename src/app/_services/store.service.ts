@@ -11,7 +11,7 @@ export class StoreService {
     return this.http.get(`${environment.apiUrl}/store-items/`);
   }
 
-  addItem(item: StoreItem): Observable<any> {
+  create(item: StoreItem): Observable<any> {
     return this.http.post(`${environment.apiUrl}/store-items/create`, { item });
   }
 

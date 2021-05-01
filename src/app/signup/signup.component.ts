@@ -45,18 +45,15 @@ export class SignupComponent implements OnInit {
     }
 
     this.loading = true;
-    this.authService
-      .register(this.form.value)
-      .pipe(first())
-      .subscribe(
-        (data) => {
-          this.closeModal();
-          this.SignIn();
-        },
-        (error) => {
-          this.loading = false;
-        }
-      );
+    this.authService.register(this.form.value).subscribe(
+      (data) => {
+        this.closeModal();
+        this.SignIn();
+      },
+      (error) => {
+        this.loading = false;
+      }
+    );
   }
 
   closeModal() {

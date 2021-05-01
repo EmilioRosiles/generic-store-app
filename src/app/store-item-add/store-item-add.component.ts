@@ -1,9 +1,6 @@
 import { Component, OnInit, ViewChild, NgZone } from '@angular/core';
-import { Router } from '@angular/router';
 import { StoreService } from '../_services/store.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { StoreItem } from '../_models/store-item';
-import { first } from 'rxjs/operators';
 
 @Component({
   selector: 'app-store-item-add',
@@ -13,22 +10,32 @@ import { first } from 'rxjs/operators';
 export class StoreItemAddComponent implements OnInit {
   form!: FormGroup;
   submitted = false;
+  loading = false;
+
   constructor(
     private formBuilder: FormBuilder,
     private storeService: StoreService
   ) {}
 
+  ngOnInit(): void {
+    this.form = this.formBuilder.group({
+      itemID: ['', Validators.required],
+      name: ['', Validators.required],
+      price: ['', Validators.required],
+    });
+  }
+
   get f() {
     return this.form.controls;
   }
-  onSubmit() {
+
+  addItem() {
     this.submitted = true;
-    if (this.form.invalid) {
+    if (this.f.invalid) {
       return;
     }
-    //here is where i left off
-    this.storeService.addItem(this.form.value).pipe(first()).subscribe();
+    this.loading = true;
+    this.storeService.create(this.form.value).subscribe();
+    this.loading = false;
   }
-
-  ngOnInit(): void {}
 }

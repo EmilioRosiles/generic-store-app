@@ -20,7 +20,7 @@
         [ngClass]="{ 'is-invalid': submitted && f.username.errors }"
       />
       <div *ngIf="submitted && f.username.errors" class="invalid-feedback">
-        <div *ngIf="f.username.errors.required">Username is required</div>
+        <div *ngIf="f.username.errors!.required">Username is required</div>
       </div>
     </div>
     <div class="form-group">
@@ -32,7 +32,7 @@
         [ngClass]="{ 'is-invalid': submitted && f.email.errors }"
       />
       <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
-        <div *ngIf="f.email.errors.required">Email is required</div>
+        <div *ngIf="f.email.errors!.required">Email is required</div>
       </div>
     </div>
     <div class="form-group">
@@ -44,7 +44,7 @@
         [ngClass]="{ 'is-invalid': submitted && f.password.errors }"
       />
       <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
-        <div *ngIf="f.password.errors.required">Password is required</div>
+        <div *ngIf="f.password.errors!.required">Password is required</div>
       </div>
     </div>
     <!-- passw cnfirmation imput 

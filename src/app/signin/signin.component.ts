@@ -46,10 +46,10 @@ export class SigninComponent implements OnInit {
     this.loading = true;
     this.authService
       .login(this.f.username.value, this.f.password.value)
-      .pipe(first())
       .subscribe(
         (data) => {
-          this.router.navigate([this.route]); //if it doesnt work change this.route to '/'
+          this.router.navigate(['/']);
+
           this.closeModal();
         },
         (error) => {
