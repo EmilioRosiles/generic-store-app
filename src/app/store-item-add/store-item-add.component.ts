@@ -19,7 +19,7 @@ export class StoreItemAddComponent implements OnInit {
 
   ngOnInit(): void {
     this.form = this.formBuilder.group({
-      itemID: ['', Validators.required],
+      id: ['', Validators.required],
       name: ['', Validators.required],
       price: ['', Validators.required],
     });

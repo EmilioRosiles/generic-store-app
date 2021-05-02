@@ -8,7 +8,7 @@ import { User } from '../_models/user';
 
 @Injectable({ providedIn: 'root' })
 export class AuthenticationService {
-  private currentUserSubject: any;
+  public currentUserSubject: any;
   public currentUser: any;
 
   constructor(private http: HttpClient) {
@@ -29,16 +29,7 @@ export class AuthenticationService {
         username,
         password,
       })
-      .pipe(
-        map((user) => {
-          //store user details and basic auth data in local storage to keep usr logged in
-          user = window.btoa(username + ':' + password);
-          localStorage.setItem('currentUser', JSON.stringify(user));
-          JSON.stringify(user);
-          this.currentUserSubject.next(user);
-          return user;
-        })
-      );
+      .pipe();
   }
   logout() {
     //remove i=user from local storage

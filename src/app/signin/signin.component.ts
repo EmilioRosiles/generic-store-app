@@ -7,6 +7,8 @@ import { FormBuilder, FormGroup, Validator, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
 
 import { AuthenticationService } from '../_services/authentication.service';
+import { User } from '../_models/user';
+import { StoreService } from '../_services/store.service';
 
 @Component({
   templateUrl: './signin.component.html',
@@ -23,7 +25,8 @@ export class SigninComponent implements OnInit {
     private router: Router,
     private authService: AuthenticationService,
     public activeModal: NgbActiveModal,
-    private modalService: NgbModal
+    private modalService: NgbModal,
+    private x: StoreService
   ) {}
 
   ngOnInit(): void {
@@ -42,19 +45,25 @@ export class SigninComponent implements OnInit {
     if (this.form.invalid) {
       return;
     }
-
     this.loading = true;
     this.authService
       .login(this.f.username.value, this.f.password.value)
       .subscribe(
-        (data) => {
+        (data: any) => {
+          const user = {
+            name: data.username,
+            token: data.token,
+          };
+          localStorage.setItem('currentUser', JSON.stringify(user));
+          this.authService.currentUserSubject.next(user);
+          this.authService.currentUser = user;
           this.router.navigate(['/']);
-
           this.closeModal();
         },
         (error) => {
           this.loading = false;
           this.submitted = false;
+          console.log(error);
         }
       );
   }

@@ -4,15 +4,15 @@
   <div class="">
     <form [formGroup]="form">
       <div class="form-group">
-        <label for="itemID">ID</label>
+        <label for="id">ID</label>
         <input
           type="text"
-          formControlName="itemID"
+          formControlName="id"
           class="form-control"
-          [ngClass]="{ 'is-invalid': submitted && f.itemID.errors }"
+          [ngClass]="{ 'is-invalid': submitted && f.id.errors }"
         />
-        <div *ngIf="submitted && f.itemID.errors" class="invalid-feedback">
-          <div *ngIf="f.itemID.errors!.required">ID is required</div>
+        <div *ngIf="submitted && f.id.errors" class="invalid-feedback">
+          <div *ngIf="f.id.errors!.required">ID is required</div>
         </div>
       </div>
       <div class="form-group">
