@@ -1,10 +1,67 @@
 input {
-  width: fit-content;
+  width: 80px;
+}
+input.name {
+  width: auto;
 }
 .card {
-  width: fit-content;
-  padding: 5px 10px;
+  width: auto;
+  padding: 0 10px;
+  display: inline-block;
 }
-.formGroup {
+.card h1 {
+  margin: 0;
+}
+.form-group {
+  padding: 0 10px;
+  margin: 1px 0;
+}
+label {
+  padding: 1px 0;
+  margin: 0;
+}
+div.form-group.button {
+  padding: 22px 0 1px 0;
+}
+div.form-group.button > button {
+  margin: 0 5px;
+}
+div.main {
+  width: fit-content;
+  height: fit-content;
+}
+.card {
+  display: block;
+}
+div.addItem {
+  padding: 10px;
+}
+div.showItems {
+  width: 100%;
+  height: fit-content;
+  padding: 10px;
+}
+button.delete {
+  background-color: rgb(224, 112, 112);
+  border-color: rgb(224, 112, 112);
+}
+button.delete:hover {
+  background-color: red;
+  border-color: red;
+}
+li > button {
+  float: right;
+  margin-left: 5px;
+}
+li p,
+button {
   display: inline;
+}
+.addImageBtn {
+  background-color: white;
+  color: black;
+  border-color: black;
+}
+.addImageBtn:hover {
+  background-color: rgb(224, 224, 224);
 }

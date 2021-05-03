@@ -1,32 +1,17 @@
-<div class="card">
-  <h1 class="">Add items to the store</h1>
-
-  <div class="">
-    <form [formGroup]="form">
-      <div class="form-group">
-        <label for="id">ID</label>
-        <input
-          type="text"
-          formControlName="id"
-          class="form-control"
-          [ngClass]="{ 'is-invalid': submitted && f.id.errors }"
-        />
-        <div *ngIf="submitted && f.id.errors" class="invalid-feedback">
-          <div *ngIf="f.id.errors!.required">ID is required</div>
-        </div>
-      </div>
+<div class="main">
+  <div class="card addItem">
+    <h1 class="">Add items to the store</h1>
+    <form [formGroup]="form" class="form-row" (ngSubmit)="addItem()">
       <div class="form-group">
         <label for="name">Item Name</label>
         <input
           type="text"
           formControlName="name"
-          class="form-control"
+          class="form-control name"
           [ngClass]="{ 'is-invalid': submitted && f.name.errors }"
         />
         <div *ngIf="submitted && f.name.errors" class="invalid-feedback">
-          <div *ngIf="f.name.errors!.required">
-            A name for the item is required
-          </div>
+          <div *ngIf="f.name.errors!.required">Name required</div>
         </div>
       </div>
       <div class="form-group">
@@ -38,15 +23,16 @@
           [ngClass]="{ 'is-invalid': submitted && f.price.errors }"
         />
         <div *ngIf="submitted && f.price.errors" class="invalid-feedback">
-          <div *ngIf="f.price.errors!.required">
-            A price for the item is required
-          </div>
+          <div *ngIf="f.price.errors!.required">Price required</div>
         </div>
       </div>
-      <div class="form-group">
+      <div class="form-group button">
+        <button class="btn btn-secondary addImageBtn">
+          <i class="fa fa-image" (click)="addImage()"></i>
+        </button>
         <button
           [disabled]="loading"
-          class="btn btn-primary"
+          class="btn btn-primary addItemBtn"
           (click)="addItem()"
         >
           <span
@@ -57,5 +43,25 @@
         </button>
       </div>
     </form>
+  </div>
+  <div class="card showItems">
+    <h2>Items List</h2>
+    <ul class="list-group">
+      <li
+        class="list-group-item list-group-item-light"
+        *ngFor="let item of storeItems; let i = index"
+        [class.active]="i == currentIndex"
+        (click)="setActiveItem(item, i)"
+      >
+        <p>Name: {{ item.name }} Price: ${{ item.price }}</p>
+        <button class="btn btn-secondary delete" (click)="delete(item)">
+          Delete
+        </button>
+        <button class="btn btn-secondary">Edit</button>
+        <button class="btn btn-secondary addImageBtn" (click)="seeImage()">
+          <i class="fa fa-image"></i>
+        </button>
+      </li>
+    </ul>
   </div>
 </div>

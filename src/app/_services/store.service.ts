@@ -16,10 +16,10 @@ export class StoreService {
   }
 
   update(id: any, item: StoreItem): Observable<any> {
-    return this.http.put(`${environment.apiUrl}/store-items/${id}`, item);
+    return this.http.put(`${environment.apiUrl}/store-items/:id`, item);
   }
 
-  delete(id: any): Observable<any> {
-    return this.http.delete(`${environment.apiUrl}/store-items/delete`);
+  delete(item: any): Observable<any> {
+    return this.http.delete(`${environment.apiUrl}/store-items/delete`, item);
   }
 }
