@@ -30,11 +30,7 @@
         <button class="btn btn-secondary addImageBtn">
           <i class="fa fa-image" (click)="addImage()"></i>
         </button>
-        <button
-          [disabled]="loading"
-          class="btn btn-primary addItemBtn"
-          (click)="addItem()"
-        >
+        <button [disabled]="loading" class="btn btn-primary addItemBtn">
           <span
             *ngIf="loading"
             class="spinner-border spinner-border-sm mr-1"

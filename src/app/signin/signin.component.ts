@@ -51,12 +51,11 @@ export class SigninComponent implements OnInit {
       .subscribe(
         (data: any) => {
           const user = {
-            name: data.username,
+            username: data.username,
             token: data.token,
           };
           localStorage.setItem('currentUser', JSON.stringify(user));
           this.authService.currentUserSubject.next(user);
-          this.authService.currentUser = user;
           this.router.navigate(['/']);
           this.closeModal();
         },
@@ -68,7 +67,7 @@ export class SigninComponent implements OnInit {
       );
   }
   closeModal() {
-    this.activeModal.close('Modal Closed');
+    this.activeModal.close();
   }
 
   SignUp() {

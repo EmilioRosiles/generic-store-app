@@ -62,13 +62,12 @@ export class StoreItemAddComponent implements OnInit {
     this.currentIndex = index;
   }
   refreshList(): void {
-    this.getAll();
     this.currentItem = undefined;
     this.currentIndex = -1;
+    this.getAll();
   }
   delete(item: any): void {
-    this.storeService.delete(item.id);
-
+    this.storeService.delete(item.id).subscribe();
     this.refreshList();
     this.refreshList();
   }

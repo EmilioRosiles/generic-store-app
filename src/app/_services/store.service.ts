@@ -20,6 +20,6 @@ export class StoreService {
   }
 
   delete(item: any): Observable<any> {
-    return this.http.delete(`${environment.apiUrl}/store-items/delete`, item);
+    return this.http.delete(`${environment.apiUrl}/store-items/${item}`);
   }
 }
