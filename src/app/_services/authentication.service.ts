@@ -8,14 +8,12 @@ import { User } from '../_models/user';
 
 @Injectable({ providedIn: 'root' })
 export class AuthenticationService {
-  public currentUserSubject: any;
-  public currentUser: any;
+  public currentUserSubject: BehaviorSubject<any>;
+  public currentUser: Observable<any>;
 
   constructor(private http: HttpClient) {
     //come back latter to see what json.parse is supposed to do
-    this.currentUserSubject = new BehaviorSubject(
-      localStorage.getItem('currentUser')
-    );
+    this.currentUserSubject = new BehaviorSubject<any>(null);
     this.currentUser = this.currentUserSubject.asObservable();
   }
 
@@ -25,19 +23,69 @@ export class AuthenticationService {
 
   login(username: string, password: string) {
     return this.http
-      .post(`${environment.apiUrl}/users/authenticate`, {
-        username,
-        password,
-      })
-      .pipe();
+      .post<any>(
+        `${environment.apiUrl}/users/authenticate`,
+        {
+          username,
+          password,
+        },
+        { withCredentials: true }
+      )
+      .pipe(
+        map((user) => {
+          this.currentUserSubject.next(user);
+          this.startRefreshTokenTimer();
+          return user;
+        })
+      );
   }
   logout() {
-    //remove i=user from local storage
-    localStorage.removeItem('currentUser');
+    this.http
+      .post<any>(
+        `${environment.apiUrl}/users/revoke-token`,
+        {},
+        { withCredentials: true }
+      )
+      .subscribe();
+    this.stopRefreshTokenTimer();
     this.currentUserSubject.next(null);
   }
 
   register(user: User) {
-    return this.http.post(`${environment.apiUrl}/users/register`, user);
+    return this.http.post<any>(`${environment.apiUrl}/users/register`, user, {
+      withCredentials: true,
+    });
+  }
+
+  refreshToken() {
+    return this.http
+      .post<any>(
+        `${environment.apiUrl}/users/refresh-token`,
+        {},
+        { withCredentials: true }
+      )
+      .pipe(
+        map((user) => {
+          this.currentUserSubject.next(user);
+          this.startRefreshTokenTimer();
+          return user;
+        })
+      );
+  }
+
+  private refreshTokenTimeout!: any;
+
+  startRefreshTokenTimer() {
+    const token = JSON.parse(atob(this.currentUserValue.token.split('.')[1]));
+    const expires = new Date(token.exp * 1000);
+    const timeout = expires.getTime() - Date.now() - 60 * 1000;
+    this.refreshTokenTimeout = setTimeout(
+      () => this.refreshToken().subscribe(),
+      timeout
+    );
+  }
+
+  stopRefreshTokenTimer() {
+    clearTimeout(this.refreshTokenTimeout);
   }
 }

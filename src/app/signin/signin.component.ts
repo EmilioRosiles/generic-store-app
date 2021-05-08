@@ -48,14 +48,9 @@ export class SigninComponent implements OnInit {
     this.loading = true;
     this.authService
       .login(this.f.username.value, this.f.password.value)
+      .pipe(first())
       .subscribe(
         (data: any) => {
-          const user = {
-            username: data.username,
-            token: data.token,
-          };
-          localStorage.setItem('currentUser', JSON.stringify(user));
-          this.authService.currentUserSubject.next(user);
           this.router.navigate(['/']);
           this.closeModal();
         },

@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
@@ -21,6 +21,8 @@ import { JwtInterceptor } from './_helpers/jwt.interceptor';
 import { StoreItemComponent } from './store-item/store-item.component';
 import { StoreItemDescriptionComponent } from './store-item-description/store-item-description.component';
 import { StoreItemAddComponent } from './store-item-add/store-item-add.component';
+import { appInitializer } from './_helpers/app.initializer';
+import { AuthenticationService } from './_services/authentication.service';
 
 @NgModule({
   declarations: [
@@ -47,6 +49,12 @@ import { StoreItemAddComponent } from './store-item-add/store-item-add.component
     ReactiveFormsModule,
   ],
   providers: [
+    {
+      provide: APP_INITIALIZER,
+      useFactory: appInitializer,
+      multi: true,
+      deps: [AuthenticationService],
+    },
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
   ],
